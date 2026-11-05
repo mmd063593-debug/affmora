@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b52">
+<title>AFFMORA Social</title>
+<style>
+:root{--navy:#102b52;--blue:#2563c7;--bg:#f3f6fb;--ink:#172033;--muted:#718096;--line:#e5eaf2;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans Bengali",sans-serif}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+.top{max-width:980px;margin:auto;padding:13px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:var(--navy)}.tag{font-size:11px;color:var(--muted);margin-top:2px}
+.wrap{max-width:720px;margin:20px auto;padding:0 12px}
+.welcome{background:linear-gradient(120deg,#102b52,#2878d8);color:#fff;border-radius:18px;padding:22px;margin-bottom:16px}
+.welcome h1{margin:0 0 7px;font-size:24px}.welcome p{margin:0;line-height:1.5;color:#e5efff}
+.panel,.post,.adbox{background:#fff;border:1px solid var(--line);border-radius:16px;margin-bottom:15px;overflow:hidden}
+.panel{padding:16px}.panel h2{margin:0 0 12px;font-size:18px}
+textarea,input[type=text],input[type=url]{width:100%;padding:12px;border:1px solid #d9e1ed;border-radius:11px;font:inherit;margin:7px 0}
+textarea{min-height:85px;resize:vertical}
+.file-row{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0}.file-label{background:#eef4ff;color:#174b91;border-radius:10px;padding:11px 13px;font-weight:700;font-size:14px;cursor:pointer}
+.file-label input{display:none}.btn{border:0;border-radius:11px;padding:12px 16px;background:var(--blue);color:#fff;font-weight:700;font-size:15px;cursor:pointer}.btn:disabled{opacity:.5}
+.hint{font-size:12px;color:var(--muted);line-height:1.5}
+.preview{max-width:100%;max-height:280px;display:none;margin:10px auto;border-radius:12px}
+.post-head{display:flex;align-items:center;gap:10px;padding:14px 15px}.avatar{width:40px;height:40px;border-radius:50%;background:#eaf1ff;color:#174b91;display:grid;place-items:center;font-weight:900}
+.post-head strong{display:block}.post-head small{color:var(--muted)}
+.caption{padding:0 15px 12px;white-space:pre-wrap;line-height:1.5}
+.media{width:100%;max-height:560px;display:block;background:#111;object-fit:contain}
+.actions{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.action{border:0;background:#f2f5fa;border-radius:9px;padding:9px 12px;color:#334155;font-weight:700;cursor:pointer}
+.comments{padding:0 14px 14px}.comment-list{font-size:13px;line-height:1.6;margin-bottom:8px}.comment-form{display:flex;gap:7px}.comment-form input{flex:1;min-width:0;margin:0}.comment-form button{border:0;border-radius:9px;padding:0 13px;background:var(--navy);color:#fff}
+.adbox{padding:12px;text-align:center}.adlabel{font-size:10px;letter-spacing:1px;color:#8793a5;font-weight:700;margin-bottom:7px}
+.empty{text-align:center;color:var(--muted);padding:30px 12px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(min-width:650px){.wrap{margin-top:26px}.welcome h1{font-size:29px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="logo">AFFMORA</div><div class="tag">CONNECT • WATCH • SHARE</div></div><div style="font-size:13px;color:#64748b">Social Feed</div></div></header>
+<main class="wrap">
+<section class="welcome"><h1>স্বাগতম AFFMORA-তে!</h1><p>ছবি ও ভিডিও শেয়ার করুন, নতুন পোস্ট দেখুন এবং কমিউনিটির সঙ্গে যুক্ত থাকুন।</p></section>
+
+<section class="panel">
+<h2>✍️ নতুন পোস্ট তৈরি করুন</h2>
+<textarea id="caption" placeholder="আপনার মনের কথা লিখুন..."></textarea>
+<div class="file-row" style="display:block">
+  <label for="mediaFile" style="display:block;font-weight:700;margin:8px 0;color:#174b91">📷 ছবি / 🎥 ভিডিও নির্বাচন করুন</label>
+  <input id="mediaFile" type="file" accept="image/*,video/*" style="display:block;width:100%;padding:14px;margin:8px 0 12px;border:2px solid #2563c7;border-radius:12px;background:#f8faff;font-size:16px;min-height:58px">
+  <button class="btn" id="publish" type="button" style="width:100%;min-height:54px;margin-top:10px">পোস্ট করুন</button>
+</div>
+<div id="postStatus" class="hint" role="status" aria-live="polite">উপরের Choose file / ফাইল বাছাই বাটনে সরাসরি চাপুন। Android-এর Gallery বা Files থেকে ছবি/ভিডিও নিন।</div>
+<div class="hint">এই সংস্করণে পোস্টগুলো এই ব্রাউজার/ডিভাইসেই সংরক্ষিত থাকবে; অন্য দর্শকের কাছে দেখাতে অনলাইন সার্ভার/ক্লাউড ডাটাবেস লাগবে।</div>
+<img id="previewImg" class="preview" alt="Preview">
+<video id="previewVideo" class="preview" controls playsinline></video>
+</section>
+
+<div class="adbox"><div class="adlabel">ADVERTISEMENT</div>
+<!-- Adsterra Direct Link script supplied by the site owner.
+     This is not a fixed-size banner code; it may show an ad after an eligible visitor interaction.
+     For an inline banner, use a separate Adsterra Banner/Native code from the dashboard. -->
+<script src="https://tremendousaccessiblemost.com/7e/24/ee/7e24ee20ed56fcf5afc2636741932dd8.js"></script>
+</div>
+
+<section id="feed"></section>
+<footer>© 2026 AFFMORA Social. বিজ্ঞাপন তৃতীয় পক্ষের মাধ্যমে প্রদর্শিত হতে পারে।</footer>
+</main>
+<script>
+const DB='affmora_social_db', STORE='posts';
+let db;
+const fileInput=document.getElementById('mediaFile');
+const imgPreview=document.getElementById('previewImg');
+const videoPreview=document.getElementById('previewVideo');
+let selectedFile=null, previewUrl=null;
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'})};req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error)})}
+function allPosts(){return new Promise((resolve,reject)=>{const r=db.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>resolve(r.result.sort((a,b)=>b.created-a.created));r.onerror=()=>reject(r.error)})}
+function savePost(post){return new Promise((resolve,reject)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).put(post);t.oncomplete=resolve;t.onerror=()=>reject(t.error)})}
+function deletePost(id){return new Promise((resolve,reject)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).delete(id);t.oncomplete=resolve;t.onerror=()=>reject(t.error)})}
+fileInput.addEventListener('change',()=>{selectedFile=fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;const status=document.getElementById('postStatus');if(previewUrl)URL.revokeObjectURL(previewUrl);imgPreview.style.display='none';videoPreview.style.display='none';if(!selectedFile){status.textContent='কোনো ফাইল নির্বাচন করা হয়নি।';return}status.textContent='নির্বাচিত ফাইল: '+selectedFile.name+' ('+Math.round(selectedFile.size/1024)+' KB)';previewUrl=URL.createObjectURL(selectedFile);if(selectedFile.type.startsWith('image/')){imgPreview.src=previewUrl;imgPreview.style.display='block'}else if(selectedFile.type.startsWith('video/')){videoPreview.src=previewUrl;videoPreview.style.display='block'}else{status.textContent='এই ফাইলটি ছবি বা ভিডিও নয়।';selectedFile=null}});
+document.getElementById('publish').addEventListener('click',async()=>{const caption=document.getElementById('caption').value.trim();if(!caption&&!selectedFile){alert('লেখা অথবা ছবি/ভিডিও যোগ করুন।');return}if(selectedFile&&!(/^(image\\/|video\\/)/.test(selectedFile.type))){alert('শুধু ছবি অথবা ভিডিও ফাইল নির্বাচন করুন।');return}if(selectedFile&&selectedFile.size>40*1024*1024){alert('ফাইলটি ৪০ MB-এর বেশি। ছোট ছবি/ভিডিও ব্যবহার করুন।');return}const post={id:Date.now(),caption,created:Date.now(),media:selectedFile||null,likes:0,comments:[]};try{await savePost(post);document.getElementById('postStatus').textContent='পোস্টটি এই ডিভাইসে সংরক্ষিত হয়েছে।';document.getElementById('caption').value='';fileInput.value='';selectedFile=null;if(previewUrl)URL.revokeObjectURL(previewUrl);previewUrl=null;imgPreview.style.display='none';videoPreview.style.display='none';await render();}catch(e){alert('পোস্ট সংরক্ষণ করা যায়নি। ব্রাউজারের স্টোরেজ খালি করে আবার চেষ্টা করুন।')}});
+async function render(){const feed=document.getElementById('feed');const posts=await allPosts();if(!posts.length){feed.innerHTML='<div class="panel empty">এখনো কোনো পোস্ট নেই। প্রথম পোস্টটি আপনিই করুন! 🌟</div>';return}feed.innerHTML='';for(const p of posts){const article=document.createElement('article');article.className='post';const head=document.createElement('div');head.className='post-head';head.innerHTML='<div class="avatar">A</div><div><strong>AFFMORA</strong><small>'+new Date(p.created).toLocaleString()+'</small></div>';article.append(head);if(p.caption){const c=document.createElement('div');c.className='caption';c.textContent=p.caption;article.append(c)}if(p.media){const url=URL.createObjectURL(p.media);let m;if(p.media.type.startsWith('video/')){m=document.createElement('video');m.controls=true;m.playsInline=true}else{m=document.createElement('img');m.alt='AFFMORA post'}m.className='media';m.src=url;article.append(m)}const actions=document.createElement('div');actions.className='actions';const like=document.createElement('button');like.className='action';like.textContent='♡ Like ('+(p.likes||0)+')';like.onclick=async()=>{p.likes=(p.likes||0)+1;await savePost(p);render()};const share=document.createElement('button');share.className='action';share.textContent='↗ Share';share.onclick=async()=>{const data={title:'AFFMORA',text:p.caption||'দেখুন AFFMORA-র এই পোস্ট'};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{await navigator.clipboard.writeText(location.href);alert('লিংক কপি হয়েছে।')}};const del=document.createElement('button');del.className='action';del.textContent='পোস্ট মুছুন';del.onclick=async()=>{if(confirm('এই পোস্টটি মুছবেন?')){await deletePost(p.id);render()}};actions.append(like,share,del);article.append(actions);const comments=document.createElement('div');comments.className='comments';const list=document.createElement('div');list.className='comment-list';(p.comments||[]).forEach(x=>{const line=document.createElement('div');line.textContent='💬 '+x;list.append(line)});const form=document.createElement('form');form.className='comment-form';const input=document.createElement('input');input.type='text';input.placeholder='একটি মন্তব্য লিখুন...';input.maxLength=300;const send=document.createElement('button');send.type='submit';send.textContent='পাঠান';form.append(input,send);form.onsubmit=async e=>{e.preventDefault();if(!input.value.trim())return;p.comments=p.comments||[];p.comments.push(input.value.trim());await savePost(p);render()};comments.append(list,form);article.append(comments);feed.append(article)}}
+openDB().then(render).catch(()=>{document.getElementById('feed').innerHTML='<div class="panel empty">এই ব্রাউজারে IndexedDB চালু নেই। Chrome-এ ফাইলটি খুলে চেষ্টা করুন।</div>'});
+</script>
+</body>
+</html>
